@@ -11,6 +11,10 @@ class Neo4j_C:
         with self._driver.session() as session:
             session.write_transaction(self._create_data)
 
+    def mostrar_datos(self):
+        with self._driver.session() as session:
+            names = session.read_transaction(self._view_data)
+
     # Nodos y sus relaciones
     @staticmethod
     def _create_data(tx):
@@ -29,7 +33,8 @@ class Neo4j_C:
         tx.run("CREATE (:Comida {name: $ComidaN})", ComidaN=ComidaN)
 
         # Crear nodos de características de comida con parámetros
-        tx.run("CREATE (:Temperatura {name: $TempN})", TempN=TempN)
+        if TempN in names:
+            tx.run("CREATE (:Temperatura {name: $TempN})", TempN=TempN)
         tx.run("CREATE (:Sabor {name: $SaborN})", SaborN=SaborN)
         tx.run("CREATE (:Textura {name: $TexturaN})", TexturaN=TexturaN)
         tx.run("CREATE (:Lugar {name: $LugarN})", LugarN=LugarN)
@@ -57,6 +62,12 @@ class Neo4j_C:
         # Establecer relación entre comida y valoración (rating)
         tx.run("MATCH (c:Comida {name: $ComidaN}), (r:Rate {name: $RateN}) "
             "MERGE (c)-[:TIENE]->(r)", ComidaN=ComidaN, RateN=RateN)
+        
+    @staticmethod
+    def _view_data(tx):
+        result = tx.run("MATCH (n) RETURN n.name AS name")
+        names = [record["names"] for record in result]
+        return names
 
 # Configuración de conexión y ejecución de la creación de datos
 uri = "neo4j+ssc://6ed9a403.databases.neo4j.io"
