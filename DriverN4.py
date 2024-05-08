@@ -57,3 +57,16 @@ class Neo4j_C:
         # Establecer relación entre comida y valoración (rating)
         tx.run("MATCH (c:Comida {name: $ComidaN}), (r:Rate {name: $RateN}) "
             "MERGE (c)-[:TIENE]->(r)", ComidaN=ComidaN, RateN=RateN)
+
+# Configuración de conexión y ejecución de la creación de datos
+uri = "neo4j+ssc://6ed9a403.databases.neo4j.io"
+user = "neo4j"
+password = "0iIoDYVv8wV4MZIcF_405l5muLHL3mMjuXN2tUevJ_w"
+
+# Crear una instancia de la clase y ejecutar la creación de nodos y relaciones
+example = Neo4j_C(uri, user, password)
+example.create_nodes_and_relationships()
+
+# Cerrar la conexión al finalizar
+example.close()
+
