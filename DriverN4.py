@@ -44,7 +44,30 @@ def mostrar_menu():
             print("Opción no válida. Por favor, seleccione una opción válida.")
 
 def ingresar_preferencias():
-    print("Ingresar preferencias")
+    print("Ingrese sus preferencias:")
+    UserN = input("Nombre de usuario: ")
+    ComidaN = input("Comida favorita: ")
+    TempN = input("Temperatura preferida: ")
+    SaborN = input("Sabor preferido: ")
+    TexturaN = input("Textura preferida: ")
+    LugarN = input("Lugar preferido para comer: ")
+    TipoN = input("Tipo de comida preferida: ")
+    RateN = input("Calificación preferida (del 1 al 10): ")
+    
+    # Imprimir las preferencias ingresadas
+    print("\nSus preferencias han sido registradas:")
+    print("Nombre de usuario:", UserN)
+    print("Comida favorita:", ComidaN)
+    print("Temperatura preferida:", TempN)
+    print("Sabor preferido:", SaborN)
+    print("Textura preferida:", TexturaN)
+    print("Lugar preferido para comer:", LugarN)
+    print("Tipo de comida preferida:", TipoN)
+    print("Calificación preferida:", RateN)
+
+# Ejemplo de uso:
+ingresar_preferencias()
+
 
 def comida_favorita():
     print("Comida favorita")
