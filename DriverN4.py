@@ -19,13 +19,38 @@ class Neo4j_C:
             for i in range(len(names)):
                 listName.append(names[i])
     
-    menu = """Bienvenidos a Tinder de comida
-1. ingresar preferencias
-2. comida favorita
+def mostrar_menu():
+    while True:
+        menu = """Bienvenidos a Tinder de comida
+1. Ingresar preferencias
+2. Comida favorita
 3. Encontrar comida
 4. Salir
-
 """
+        print(menu)
+        
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":
+            ingresar_preferencias()
+        elif opcion == "2":
+            comida_favorita()
+        elif opcion == "3":
+            encontrar_comida()
+        elif opcion == "4":
+            print("Saliendo del programa...")
+            break
+        else:
+            print("Opción no válida. Por favor, seleccione una opción válida.")
+
+def ingresar_preferencias():
+    print("Ingresar preferencias")
+
+def comida_favorita():
+    print("Comida favorita")
+
+def encontrar_comida():
+    print("Encontrar comida")
 
     # Nodos y sus relaciones
     @staticmethod
