@@ -19,6 +19,13 @@ class Neo4j_C:
             for i in range(len(names)):
                 listName.append(names[i])
     
+    menu = """Bienvenidos a Tinder de comida
+1. ingresar preferencias
+2. comida favorita
+3. Encontrar comida
+4. Salir
+
+"""
 
     # Nodos y sus relaciones
     @staticmethod
@@ -109,6 +116,7 @@ password = "0iIoDYVv8wV4MZIcF_405l5muLHL3mMjuXN2tUevJ_w"
 example = Neo4j_C(uri, user, password)
 example.mostrar_datos()
 example.create_nodes_and_relationships()
+
 
 # Cerrar la conexión al finalizar
 example.close()
