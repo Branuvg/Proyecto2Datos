@@ -6,16 +6,6 @@ h1{
     font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
-/*footer{
-    padding: 10px;
-    background-color: black;
-    color:#ffffff;
-    text-align: center;
-    margin-top: 16px;
-    position:relative;
-    z-index: 1;
-}*/
-
 .split {
     height: 100%;
     width: 50%;
@@ -38,10 +28,46 @@ h1{
 
 .centered {
     position: absolute;
-    top: 15%;
+    top: 10%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+}
+
+.recomendaciones{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border:none;
+    padding:15% 40%;
+    background-color: #F3372C;
+    border-radius: 8px; 
+}
+
+.derecha{
+    position: absolute;
+    right:15%;
+    top:25%;
+    margin:30px;
+    font-size: 20px;
+    background-color: white;
+    padding: 50px;
+    padding-bottom: 60px;
+    border-radius: 8px;
+}
+
+.izquierda{
+    position: absolute;
+    left: 15%;
+    top:25%;
+    margin:30px;
+    font-size: 20px;
+    background-color: white;
+    padding: 50px;
+    padding-bottom: 60px;
+    border-radius: 8px;
 }
 
 .logo {
@@ -64,6 +90,8 @@ h1{
     background-color: #F3372C;
     border-radius: 8px;
 }
+
+
 
 button {
     font-family: "Comic Sans MS", "Comic Sans", cursive;
@@ -89,6 +117,7 @@ button {
 .form-group{
     margin:30px;
     font-size: 20px;
+    
 }
 
 form{
