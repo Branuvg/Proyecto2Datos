@@ -6,13 +6,15 @@ h1{
     font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
-footer{
+/*footer{
     padding: 10px;
     background-color: black;
     color:#ffffff;
     text-align: center;
     margin-top: 16px;
-}
+    position:relative;
+    z-index: 1;
+}*/
 
 .split {
     height: 100%;
