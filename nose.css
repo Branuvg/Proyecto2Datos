@@ -28,15 +28,16 @@ h1{
 
 .centered {
     position: absolute;
-    top: 5%;
+    top: 15%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    z-index: 1;
 }
 
 .recomendaciones{
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -93,7 +94,7 @@ h1{
 
 .preguntas {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
