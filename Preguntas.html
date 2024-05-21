@@ -6,32 +6,122 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type ="text/css" href="nose.css">
 </head>
-<body>
+<body style="background-color: #c7c7c7;">
 
 <!-- First Grid: Logo & About -->
-<div class="split left">
-  <div class="centered">
-    <h1>My Soul Comida</h1>
-  </div>
-  <div class="logo">
-      <img src="logo_comida.png" style="width:100%">
-  </div>
-</div>
-<div class="split right">
-  <h1 class="centered">Sign In</h1>
-      <div class="texty">
-        <form>
-          <div class="form-group">
-            <label>Email: </label>
-            <input type="text" name="name">
-          </div>
-          <div class="form-group">
-            <label>Contraseña: </label>
-            <input type="text" name="email">
-          </div>
-          <input class="button" type="submit" value="Submit" name="">
-        </form>
+<h1 class="centered">Preguntas</h1>
+<div class="preguntas">
+  <form>
+    <div class="comida-group">
+      <label>Comida: </label>
+      <input type="text" required name="comida">
+    </div>
+  </form>
+  <form id="quiz-form">
+    <div class="d-flex">
+      <div class="question">
+        <p>1. Temperatura</p>
+        <div class="answers">
+          <label>
+            <input type="radio" name="q1" value="a">
+            Frio
+          </label>
+          <label>
+            <input type="radio" name="q1" value="b">
+            Caliente
+          </label>
+          <label>
+            <input type="radio" name="q1" value="c">
+            Templado
+          </label>
+        </div>
       </div>
+      
+      <div class="question">
+        <p>2. Sabor</p>
+        <div class="answers">
+          <label>
+            <input type="radio" name="q2" value="a">
+            Dulce
+          </label>
+          <label>
+            <input type="radio" name="q2" value="b">
+            Salado
+          </label>
+          <label>
+            <input type="radio" name="q2" value="c">
+            Acido
+          </label>
+          <label>
+            <input type="radio" name="q2" value="d">
+            Picante
+          </label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>3. Textura</p>
+        <div class="answers">
+          <label>
+            <input type="radio" name="q3" value="a">
+            Suave
+          </label>
+          <label>
+            <input type="radio" name="q3" value="b">
+            Crujiente
+          </label>
+          <label>
+            <input type="radio" name="q3" value="c">
+            Cremoso
+          </label>
+          <label>
+            <input type="radio" name="q3" value="d">
+            Liquído
+          </label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>4. Lugar</p>
+        <div class="answers">
+          <label>
+            <input type="radio" name="q4" value="a">
+            Restaurante
+          </label>
+          <label>
+            <input type="radio" name="q4" value="b">
+            Casa
+          </label>
+          <label>
+            <input type="radio" name="q4" value="c">
+            Calle
+          </label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>5. Tipo</p>
+        <div class="answers">
+          <label>
+            <input type="radio" name="q5" value="a">
+            Saludable
+          </label>
+          <label>
+            <input type="radio" name="q5" value="b">
+            Chatarra
+          </label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>6. Rating</p>
+        <label>Del 1 al 10</label>
+        <input type="text" required name="rating">
+      </div>
+
+    </div>
+  </form>
+  <a href="Recomendaciones.html"><button type="submit" class="confirm">Send</button></a> <! Este a no deberia estar alli, solo esta para ver el movimiento entre las pags y deberia estar dentro del form!>
 </div>
 
 </body>
