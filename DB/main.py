@@ -5,7 +5,7 @@ from firebase_admin import credentials, db
 def initialize_firebase():
     try:
         # Carga las credenciales de Firebase desde el archivo JSON
-        cred = credentials.Certificate('DB/credentials.json')
+        cred = credentials.Certificate('config.json')
         
         # Inicializa la aplicación de Firebase con la URL de la base de datos
         firebase_admin.initialize_app(cred, {
@@ -49,9 +49,9 @@ if __name__ == "__main__":
     initialize_firebase()
 
     # Agrega nuevos usuarios
-    agregar_usuario("Dom", "zxxzxl")
-    agregar_usuario("Bran", "xjhxcs")
-    agregar_usuario("Luis", "ajjsjs")
+    #agregar_usuario("Dom", "zxxzxl")
+    #agregar_usuario("Bran", "xjhxcs")
+    agregar_usuario("Csas", "fdfd")
 
     # Obtén y muestra todos los usuarios
     obtener_usuarios()
