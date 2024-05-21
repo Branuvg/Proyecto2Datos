@@ -1,0 +1,149 @@
+[33mcommit 5d53f391df4ef983372db5207bac499cd9f7cae1[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: David Dominguez <dominguezdavid396@gmail.com>
+Date:   Mon May 20 21:36:10 2024 -0600
+
+    Pequeños fixes
+
+[33mcommit e2e7c41e88b195891c29432cea0ec00d6a189e99[m
+Author: David Dominguez <dominguezdavid396@gmail.com>
+Date:   Mon May 20 20:47:13 2024 -0600
+
+    Implementacion de Flask para LogIN
+
+[33mcommit 7546f0ae9d56b34b8d380cff2340cad13c5db203[m
+Author: David Dominguez <dominguezdavid396@gmail.com>
+Date:   Mon May 20 20:21:11 2024 -0600
+
+    Estructura de proyecto
+
+[33mcommit 0fc86c28ef32d3fff2191bd7ae0f437ee2aaa509[m
+Author: DavidDominguez-11 <84152698+DavidDominguez-11@users.noreply.github.com>
+Date:   Mon May 20 20:06:05 2024 -0600
+
+    Update and rename DB/xx.json to config.json
+
+[33mcommit d6e87102738147b3ee5f6c163b9157873b3dd58f[m
+Author: DavidDominguez-11 <84152698+DavidDominguez-11@users.noreply.github.com>
+Date:   Mon May 20 20:02:49 2024 -0600
+
+    Add files via upload
+
+[33mcommit 67bb04a55c9b81b9a621e1404c63bde97b2bbb61[m
+Author: Gabriel Bran <bra23590@uvg.edu.gt>
+Date:   Mon May 20 18:13:34 2024 -0600
+
+    ajustes de los titulos
+
+[33mcommit aea8c4e725d2f24e0d04304d471d3d5cba03bfd8[m
+Author: Gabriel Bran <bra23590@uvg.edu.gt>
+Date:   Mon May 20 18:10:59 2024 -0600
+
+    Preguntas terminadas
+
+[33mcommit 7ac4bd1c69186d365ca98622f26e2a62dfc06b77[m
+Author: Gabriel Bran <bra23590@uvg.edu.gt>
+Date:   Mon May 20 16:00:21 2024 -0600
+
+    Recomendaciones
+
+[33mcommit 5f53a331abd667bbbc9de698c9c02ee75c60febc[m
+Author: Gabriel Bran <bra23590@uvg.edu.gt>
+Date:   Mon May 20 09:01:48 2024 -0600
+
+    adios footer
+
+[33mcommit 3bced1dfade4a09231d7abebcd510666647f24a3[m
+Author: Gabriel Bran <bra23590@uvg.edu.gt>
+Date:   Mon May 20 08:01:57 2024 -0600
+
+    Agreado de preguntas y recomendaciones con algunos de bugs
+
+[33mcommit 7ef5a832e238156c52dc84c17934ab0164bc8c77[m
+Author: Gabriel Bran <bra23590@uvg.edu.gt>
+Date:   Sat May 18 23:02:23 2024 -0600
+
+    html sign up
+
+[33mcommit 426154607edb5c7e3a30fc33a77bea3e7b03f0b4[m
+Author: Gabriel Bran <bra23590@uvg.edu.gt>
+Date:   Sat May 18 23:01:45 2024 -0600
+
+    html log in
+
+[33mcommit 809fb6e038444f59892256e6a3a35cf93d9962d4[m
+Author: Gabriel Bran <bra23590@uvg.edu.gt>
+Date:   Sat May 18 23:01:20 2024 -0600
+
+    html inicio junto con css
+
+[33mcommit b74bba2b708a34e2c7e0bca096f8b8a77d644149[m
+Author: Gabriel Bran <bra23590@uvg.edu.gt>
+Date:   Sat May 18 22:59:31 2024 -0600
+
+    foto del logo
+
+[33mcommit 539c6e824e34cc1cc2ccf49345444f3bcbd21ea8[m
+Author: DijanU <156262584+DijanU@users.noreply.github.com>
+Date:   Sun May 12 22:12:53 2024 -0600
+
+    preferencias
+    
+    preferencias
+
+[33mcommit 20bdd044a1c9e15a3eaca7272b7db3fa0fcf297d[m
+Author: DijanU <156262584+DijanU@users.noreply.github.com>
+Date:   Sun May 12 21:56:30 2024 -0600
+
+    creacion menu
+    
+    menu como funcion
+
+[33mcommit 5fc332adcb8811aa9e9df950852fa85bd5508f00[m
+Author: DijanU <156262584+DijanU@users.noreply.github.com>
+Date:   Sun May 12 21:53:24 2024 -0600
+
+    modelo menu
+    
+    ,menu
+
+[33mcommit 1601eea27f6d0e7a18ad2d07739aeee6f0df4265[m
+Author: Gabriel Bran <bra23590@uvg.edu.gt>
+Date:   Wed May 8 09:58:10 2024 -0600
+
+    Implementacion de verificacion de nodos existentes
+
+[33mcommit 1ca6e0fa5897abcc867fd77b9ac2d15adb039434[m
+Author: Gabriel Bran <bra23590@uvg.edu.gt>
+Date:   Wed May 8 08:34:28 2024 -0600
+
+    View data in console
+
+[33mcommit 07083ac8a756e68a2e4c8f1a97fb709c7b22a9e1[m
+Author: David Dominguez <dominguezdavid396@gmail.com>
+Date:   Wed May 8 07:53:21 2024 -0600
+
+    Datos de Neo4J Aura
+
+[33mcommit e10ef02fcc501ef12e4e5c02cabb80a2a8678cfe[m
+Author: David Dominguez <dominguezdavid396@gmail.com>
+Date:   Wed May 8 07:47:20 2024 -0600
+
+    Configuracion de conexion y ejecucion de datos
+
+[33mcommit 5b25d85c9d014b4baf564b915f814def4d4c3b47[m
+Author: David Dominguez <dominguezdavid396@gmail.com>
+Date:   Wed May 8 07:45:59 2024 -0600
+
+    Implementacion de metodo para los nodos y sus relaciones
+
+[33mcommit 0ad93edb77a7aa5c933d9c9c4698ecc19c5dd1b5[m
+Author: David Dominguez <dominguezdavid396@gmail.com>
+Date:   Wed May 8 07:43:44 2024 -0600
+
+    Clase del driver para Neo4J en Python
+
+[33mcommit a06bfddec4a7e81f0fc4f47388c16f4679a59221[m
+Author: Branuvg <141085588+Branuvg@users.noreply.github.com>
+Date:   Tue May 7 09:17:19 2024 -0600
+
+    Initial commit
