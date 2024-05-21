@@ -3,6 +3,8 @@ from neo4j import GraphDatabase
 class Neo4j_C:
     global listName
     listName = []
+    global reclist
+    reclist = []
 
     def __init__(self, uri, user, password):
         self._driver = GraphDatabase.driver(uri, auth=(user, password))
@@ -25,10 +27,13 @@ class Neo4j_C:
 
     def recomendar_comida(self, user_name):
         with self._driver.session() as session:
-            recommendations = session.read_transaction(self._view_data)
+            recommendations = session.read_transaction(self._view_food)
             print(f"Recomendaciones para {user_name}:")
-            for food in recommendations:
-                print(food)
+            for nodo in recommendations:
+                reclist.append(nodo)
+
+        print(reclist)
+
 
     # Nodos y sus relaciones
     @staticmethod
@@ -113,6 +118,13 @@ class Neo4j_C:
         names = [record["name"] for record in result]
         return names
     
+    @staticmethod
+    def _view_food(tx):
+        result = tx.run("MATCH (n:Comida) RETURN n.name AS name")
+        names = [record["name"] for record in result]
+        return names
+    
+
 
 @staticmethod
 def _recommend_food(tx, user_name):
@@ -125,10 +137,10 @@ def _recommend_food(tx, user_name):
     MATCH (f)-[:PERTENECE]->(tp:Tipo)
     WITH t, s, tx, l, tp
     MATCH (otherFoods:Comida)
-    WHERE (otherFoods)-[:PERTENECE]->(t) OR
+    WHERE (otherFoods)-[:PERTENECE]->(t) ANd
           (otherFoods)-[:PERTENECE]->(s) AND
-          (otherFoods)-[:PERTENECE]->(tx) OR
-          (otherFoods)-[:PERTENECE]->(l) OR
+          (otherFoods)-[:PERTENECE]->(tx) AND
+          (otherFoods)-[:PERTENECE]->(l) AND
           (otherFoods)-[:PERTENECE]->(tp) AND
           (otherFoods) <> f
     RETURN otherFoods.name AS name
@@ -146,6 +158,7 @@ password = "0iIoDYVv8wV4MZIcF_405l5muLHL3mMjuXN2tUevJ_w"
 example = Neo4j_C(uri, user, password)
 example.mostrar_datos()
 example.create_nodes_and_relationships()
+example.recomendar_comida("David")
 
 # Cerrar la conexión al finalizar
 example.close()
