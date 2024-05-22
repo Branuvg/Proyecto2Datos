@@ -22,30 +22,42 @@ class Neo4j_C:
             for i in range(len(names)):
                 listName.append(names[i])
 
-    def recomendation_comida(self, usuario_activo):
-        if usuario_activo:
-            self.recomendar_comida(usuario_activo)
-        else:
-            print("Por favor, ingrese sus preferencias primero.")
-
-    def recomendar_comida(self, user_name):
-        with self._driver.session() as session:
-            recommendations = session.read_transaction(self._view_food)
-            print(f"Recomendaciones para {user_name}:")
-            for nodo in recommendations:
-                reclist.append(nodo)
+    def recomendation_comida(self, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN):
+        recommendations = self.recomendar_comida(ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN)
+        print(f"Recomendaciones para comida con características dadas:")
+        for nodo in recommendations:
+            reclist.append(nodo)
         print(reclist)
+
+    def recomendar_comida(self, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN):
+        with self._driver.session() as session:
+            recommendations = session.read_transaction(
+                self._recommend_food, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN
+            )
+        
+        return recommendations
 
     # Nodos y sus relaciones
     @staticmethod
     def _create_data(tx, UserN, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN):
+        UserN = UserN
+        ComidaN = ComidaN
+        TempN = TempN
+        SaborN = SaborN
+        TexturaN = TexturaN
+        LugarN = LugarN
+        TipoN = TipoN
+        RateN = RateN
+
         global listName
+
+        print(listName, "***")
 
         # Crear nodos de usuario y comida con parámetros
         tx.run("CREATE (:User {name: $UserN})", UserN=UserN)
 
         # Crear nodos de características de comida con parámetros
-        if TempN not in listName:
+        if ComidaN not in listName:
             tx.run("CREATE (:Comida {name: $ComidaN})", ComidaN=ComidaN)
         else:
             tx.run("MATCH (c:User {name: $UserN}), (t:Comida {name: $ComidaN}) "
@@ -82,8 +94,8 @@ class Neo4j_C:
                    "MERGE (c)-[:TIENE]->(r)", ComidaN=ComidaN, RateN=RateN)
 
         # Establecer relaciones entre usuario y comida
-        tx.run("MATCH (u:User {name: $UserN}), (c:Comida {name: $ComidaN}) "
-               "MERGE (u)-[:WATCH]->(c)", UserN=UserN, ComidaN=ComidaN)
+        #tx.run("MATCH (u:User {name: $UserN}), (c:Comida {name: $ComidaN}) "
+               #"MERGE (u)-[:WATCH]->(c)", UserN=UserN, ComidaN=ComidaN)
 
         # Establecer relaciones entre comida y características
         tx.run("MATCH (c:Comida {name: $ComidaN}), "
@@ -116,26 +128,34 @@ class Neo4j_C:
         return names
 
     @staticmethod
-    def _recommend_food(tx, user_name):
+    def _recommend_food(tx, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN):
         query = """
-        MATCH (u:User {name: $user_name})-[:WATCH]->(f:Comida)
-        MATCH (f)-[:PERTENECE]->(t:Temperatura)
-        MATCH (f)-[:PERTENECE]->(s:Sabor)
-        MATCH (f)-[:PERTENECE]->(tx:Textura)
-        MATCH (f)-[:PERTENECE]->(l:Lugar)
-        MATCH (f)-[:PERTENECE]->(tp:Tipo)
+        MATCH (f:Comida {name: $ComidaN})-[:PERTENECE]->(t:Temperatura),
+            (f)-[:PERTENECE]->(s:Sabor),
+            (f)-[:PERTENECE]->(tx:Textura),
+            (f)-[:PERTENECE]->(l:Lugar),
+            (f)-[:PERTENECE]->(tp:Tipo)
         WITH t, s, tx, l, tp
         MATCH (otherFoods:Comida)
-        WHERE (otherFoods)-[:PERTENECE]->(t) AND
-              (otherFoods)-[:PERTENECE]->(s) AND
-              (otherFoods)-[:PERTENECE]->(tx) AND
-              (otherFoods)-[:PERTENECE]->(l) AND
-              (otherFoods)-[:PERTENECE]->(tp) AND
-              (otherFoods) <> f
-        RETURN otherFoods.name AS name
+        WHERE otherFoods.name <> $ComidaN
+        OPTIONAL MATCH (otherFoods)-[r1:PERTENECE]->(t)
+        OPTIONAL MATCH (otherFoods)-[r2:PERTENECE]->(s)
+        OPTIONAL MATCH (otherFoods)-[r3:PERTENECE]->(tx)
+        OPTIONAL MATCH (otherFoods)-[r4:PERTENECE]->(l)
+        OPTIONAL MATCH (otherFoods)-[r5:PERTENECE]->(tp)
+        WITH otherFoods, count(r1) + count(r2) + count(r3) + count(r4) + count(r5) AS relevance
+        RETURN otherFoods.name AS name, relevance
+        ORDER BY relevance DESC
+        LIMIT 2
         """
-        result = tx.run(query, user_name=user_name)
-        return [record["name"] for record in result]
+        result = tx.run(query, ComidaN=ComidaN, TempN=TempN, SaborN=SaborN, TexturaN=TexturaN, LugarN=LugarN, TipoN=TipoN, RateN=RateN)
+        
+        # Ensure at least 2 results are returned
+        recommendations = [record["name"] for record in result]
+        while len(recommendations) < 2:
+            recommendations.append(None)
+        
+        return recommendations
 
 
 # Configuración de conexión y ejecución de la creación de datos
@@ -149,7 +169,22 @@ example = Neo4j_C(uri, user, password)
 #example.create_nodes_and_relationships("Pepito", "Helado", "Frio", "Dulce", "Cremoso", "Restaurante", "Chatarra", "10")
 
 #example.mostrar_datos()
-example.recomendar_comida("Pepito")
 
+# pruebas 
+"""
+example.recomendar_comida("Pizza", "Caliente", "Salado", "Suave", "Casa", "Chatarra", "10")
+example.recomendar_comida("Pizza", "Caliente", "Salado", "Crujiente", "Restaurante", "Chatarra", "10")
+
+example.recomendar_comida("Hamburguesa", "Caliente", "Salado", "Crujiente", "Restaurante", "Chatarra", "7")
+
+example.recomendar_comida("Helado", "Frio", "Dulce", "Liquido", "Casa", "Chatarra", "10")
+example.recomendar_comida("Sopa", "Frio", "Dulce", "Liquido", "Casa", "Saludable", "8")
+
+example.recomendar_comida("Papitas", "Caliente", "Salado", "Crujiente", "Restaurante", "Chatarra", "10")
+
+"""
+#example.recomendar_comida("Sprite", "Frio", "Dulce", "Liquido", "Restaurante", "Chatarra", "10")
+
+#print(type(example.recomendar_comida("Sprite", "Frio", "Dulce", "Liquido", "Restaurante", "Chatarra", "10")))
 # Cerrar la conexión al finalizar
 example.close()

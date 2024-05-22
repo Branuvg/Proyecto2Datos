@@ -7,6 +7,8 @@ from n4j.DriverN4 import *
 
 app = Flask(__name__)
 
+dos_recomendaciones = [] 
+
 # Inicializa la aplicación de Firebase
 def initialize_firebase():
     try:
@@ -124,6 +126,8 @@ def procesar_respuestas(nombre_usuario, comida, q1, q2, q3, q4, q5, rating):
 
     # UserN, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN
     example.create_nodes_and_relationships(nombre_usuario,comida,q1,q2,q3,q4,q5,rating)
+
+    dos_recomendaciones = example.recomendar_comida()
     example.close()
 
 if __name__ == "__main__":
