@@ -45,7 +45,7 @@ class Neo4j_C:
         tx.run("CREATE (:User {name: $UserN})", UserN=UserN)
 
         # Crear nodos de características de comida con parámetros
-        if TempN not in listName:
+        if ComidaN not in listName:
             tx.run("CREATE (:Comida {name: $ComidaN})", ComidaN=ComidaN)
         else:
             tx.run("MATCH (c:User {name: $UserN}), (t:Comida {name: $ComidaN}) "
@@ -82,8 +82,8 @@ class Neo4j_C:
                    "MERGE (c)-[:TIENE]->(r)", ComidaN=ComidaN, RateN=RateN)
 
         # Establecer relaciones entre usuario y comida
-        tx.run("MATCH (u:User {name: $UserN}), (c:Comida {name: $ComidaN}) "
-               "MERGE (u)-[:WATCH]->(c)", UserN=UserN, ComidaN=ComidaN)
+        #tx.run("MATCH (u:User {name: $UserN}), (c:Comida {name: $ComidaN}) "
+               #"MERGE (u)-[:WATCH]->(c)", UserN=UserN, ComidaN=ComidaN)
 
         # Establecer relaciones entre comida y características
         tx.run("MATCH (c:Comida {name: $ComidaN}), "
