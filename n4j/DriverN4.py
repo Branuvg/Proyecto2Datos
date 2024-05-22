@@ -22,18 +22,11 @@ class Neo4j_C:
             for i in range(len(names)):
                 listName.append(names[i])
 
-    def recomendation_comida(self, usuario_activo):
-        if usuario_activo:
-            self.recomendar_comida(usuario_activo)
-        else:
-            print("Por favor, ingrese sus preferencias primero.")
-
-    def recomendar_comida(self, user_name):
-        with self._driver.session() as session:
-            recommendations = session.read_transaction(self._view_food)
-            print(f"Recomendaciones para {user_name}:")
-            for nodo in recommendations:
-                reclist.append(nodo)
+    def recomendation_comida(self, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN):
+        recommendations = self.recomendar_comida(ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN)
+        print(f"Recomendaciones para comida con características dadas:")
+        for nodo in recommendations:
+            reclist.append(nodo)
         print(reclist)
 
 # Nodos y sus relaciones
@@ -173,5 +166,21 @@ example = Neo4j_C(uri, user, password)
 example.mostrar_datos()
 example.recomendar_comida("David")
 
+# pruebas 
+"""
+example.recomendar_comida("Pizza", "Caliente", "Salado", "Suave", "Casa", "Chatarra", "10")
+example.recomendar_comida("Pizza", "Caliente", "Salado", "Crujiente", "Restaurante", "Chatarra", "10")
+
+example.recomendar_comida("Hamburguesa", "Caliente", "Salado", "Crujiente", "Restaurante", "Chatarra", "7")
+
+example.recomendar_comida("Helado", "Frio", "Dulce", "Liquido", "Casa", "Chatarra", "10")
+example.recomendar_comida("Sopa", "Frio", "Dulce", "Liquido", "Casa", "Saludable", "8")
+
+example.recomendar_comida("Papitas", "Caliente", "Salado", "Crujiente", "Restaurante", "Chatarra", "10")
+
+"""
+#example.recomendar_comida("Sprite", "Frio", "Dulce", "Liquido", "Restaurante", "Chatarra", "10")
+
+#print(type(example.recomendar_comida("Sprite", "Frio", "Dulce", "Liquido", "Restaurante", "Chatarra", "10")))
 # Cerrar la conexión al finalizar
 example.close()
