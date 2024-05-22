@@ -37,7 +37,7 @@ class Neo4j_C:
         
         return recommendations
 
-    # Nodos y sus relaciones
+# Nodos y sus relaciones
     @staticmethod
     def _create_data(tx, UserN, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN):
         UserN = UserN
@@ -51,7 +51,7 @@ class Neo4j_C:
 
         global listName
 
-        print(listName, "***")
+        print(listName, "*")
 
         # Crear nodos de usuario y comida con parámetros
         tx.run("CREATE (:User {name: $UserN})", UserN=UserN)
@@ -187,4 +187,4 @@ example.recomendar_comida("Papitas", "Caliente", "Salado", "Crujiente", "Restaur
 
 #print(type(example.recomendar_comida("Sprite", "Frio", "Dulce", "Liquido", "Restaurante", "Chatarra", "10")))
 # Cerrar la conexión al finalizar
-example.close()
+#example.close()
