@@ -1,232 +1,240 @@
 body{
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
 h1{
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
-    color: #FF0000;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  color: #FF0000;
 }
 
 u{
-  color:white;
-  margin-top: 5px;
+color:white;
+margin-top: 5px;
+}
+
+h2{
+font-size: 20px;
 }
 
 .header{
-  color:white;
+color:white;
 }
 
 .header2{
-  color:white;
-  position: absolute;
-  top:5%;
-  left:40%;
-  text-align: center;
+color:white;
+position: absolute;
+top:5%;
+left:40%;
+text-align: center;
+}
+
+.recomfinal{
+font-size: 25px;
 }
 
 .split {
-    height: 100%;
-    width: 50%;
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    overflow-x: hidden;
-    padding-top: 20px;
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
 }
-  
+
 .left {
-    left: 0;
-    background-color: #ffffff;
-    background-image: linear-gradient(white, #adadad);
-  }
-  
+  left: 0;
+  background-color: #ffffff;
+  background-image: linear-gradient(white, #adadad);
+}
+
 .right {
-    right: 0;
-    background-color: #ffffff;
-    background-image: linear-gradient(white, #adadad);
+  right: 0;
+  background-color: #ffffff;
+  background-image: linear-gradient(white, #adadad);
 }
 
 .centered {
-    position: absolute;
-    top: 15%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 1;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
 }
 
 .recomendaciones{
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    border:none;
-    padding:15% 40%;
-    background-color: #FF0000;
-    border-radius: 8px; 
-    color: #FF0000;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border:none;
+  padding:15% 40%;
+  background-color: #FF0000;
+  border-radius: 8px; 
+  color: #FF0000;
 }
 
 .derecha{
-    position: absolute;
-    right:15%;
-    top:25%;
-    margin:30px;
-    font-size: 20px;
-    background-color: white;
-    padding: 50px;
-    padding-bottom: 60px;
-    border-radius: 8px;
+  position: absolute;
+  right:15%;
+  top:25%;
+  margin:30px;
+  font-size: 20px;
+  background-color: white;
+  padding: 50px;
+  padding-bottom: 60px;
+  border-radius: 8px;
 }
 
 .izquierda{
-    position: absolute;
-    left: 15%;
-    top:25%;
-    margin:30px;
-    font-size: 20px;
-    background-color: white;
-    padding: 50px;
-    padding-bottom: 60px;
-    border-radius: 8px;
+  position: absolute;
+  left: 15%;
+  top:25%;
+  margin:30px;
+  font-size: 20px;
+  background-color: white;
+  padding: 50px;
+  padding-bottom: 60px;
+  border-radius: 8px;
 }
 
 .logo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    border:none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border:none;
 }
 
 .texty {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    border:none;
-    padding:50px 150px;
-    background-color: #FF0000;
-    border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border:none;
+  padding:50px 150px;
+  background-color: #FF0000;
+  border-radius: 8px;
 }
 
 .preguntas {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    border:none;
-    padding:50px 10px;
-    background-color: #FF0000;
-    border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border:none;
+  padding:50px 10px;
+  background-color: #FF0000;
+  border-radius: 8px;
 }
 
 button {
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
-    background-color: white;
-    color: #FF0000;
-    border: none;
-    padding: 20px;
-    padding-left: 100px;
-    padding-right: 100px;
-    text-align: center;
-    display: inline-block;
-    font-size: 25px;
-    margin: 10px;
-    cursor: pointer;
-    transition-duration: 0.4s;
-    border-radius: 8px;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  background-color: white;
+  color: #FF0000;
+  border: none;
+  padding: 20px;
+  padding-left: 100px;
+  padding-right: 100px;
+  text-align: center;
+  display: inline-block;
+  font-size: 25px;
+  margin: 10px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 8px;
 }
 
 .button:hover {
-    background-color: #a8a8a8;
-    color: black;
+  background-color: #a8a8a8;
+  color: black;
 }
 
 .confirm {
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
-    background-color: white;
-    color: #FF0000;
-    border: none;
-    padding: 12px;
-    text-align: center;
-    display: inline-block;
-    font-size: 15px;
-    margin: 10px;
-    cursor: pointer;
-    transition-duration: 0.4s;
-    border-radius: 8px;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  background-color: white;
+  color: #FF0000;
+  border: none;
+  padding: 12px;
+  text-align: center;
+  display: inline-block;
+  font-size: 15px;
+  margin: 10px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 8px;
 }
 
 .confirm:hover{
-    background-color: #a8a8a8;
-    color: black;
+  background-color: #a8a8a8;
+  color: black;
 }
 
 .form-group{
-    margin:25px;
-    margin-top: 5px;
-    font-size: 20px;
-    
+  margin:25px;
+  margin-top: 5px;
+  font-size: 20px;
+  
 }
 
 .comida-group{
-    margin:15px;
-    font-size: 20px;
-    margin-top: 5px;
+  margin:15px;
+  font-size: 20px;
+  margin-top: 5px;
 }
 
 form{
-    color:black;
+  color:black;
 }
 
 .question {
-    width:175px;
-    margin-bottom: 20px;
-    padding:20px;
-  }
+  width:175px;
+  margin-bottom: 20px;
+  padding:20px;
+}
 
-  .question p{
-    font-weight: bold;
-  }
-  .answers {
-    margin-bottom: 2px;
-  }
-  .answers label:not(:first-child){
-    border-top:1px solid #e0e0e0;
-  }
-  label {
-    padding:10px 0;
-    display: block;
-    margin-bottom: 10px;
-  }
-  input[type="radio"] {
-    margin-right: 10px;
-  }
-  .submit-btn {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-  }
-  .result {
-    font-weight: bold;
-    font-size: 22px;
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f2f2f2;
-    border-radius: 5px;
-    text-align: center;
-  }
-  .d-flex{
-    display: flex;
-  }
+.question p{
+  font-weight: bold;
+}
+.answers {
+  margin-bottom: 2px;
+}
+.answers label:not(:first-child){
+  border-top:1px solid #e0e0e0;
+}
+label {
+  padding:10px 0;
+  display: block;
+  margin-bottom: 10px;
+}
+input[type="radio"] {
+  margin-right: 10px;
+}
+.submit-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.result {
+  font-weight: bold;
+  font-size: 22px;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  text-align: center;
+}
+.d-flex{
+  display: flex;
+}
