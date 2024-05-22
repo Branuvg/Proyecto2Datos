@@ -2,12 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for
 import firebase_admin
 from firebase_admin import credentials, db
 
-#import n4j.DriverN4
+# Importa tu módulo de Neo4j aquí
 from n4j.DriverN4 import *
 
 app = Flask(__name__)
 
-dos_recomendaciones = [] 
+# Variable global para almacenar recomendaciones
+dos_recomendaciones = []
 
 # Inicializa la aplicación de Firebase
 def initialize_firebase():
@@ -111,7 +112,7 @@ def procesar_preguntas():
 
 @app.route('/recomendaciones')
 def recomendaciones():
-    return render_template('Recomendaciones.html')
+    return render_template('Recomendaciones.html', recomendaciones=dos_recomendaciones)
 
 def procesar_respuestas(nombre_usuario, comida, q1, q2, q3, q4, q5, rating):
     # Aquí puedes procesar las respuestas como desees
@@ -125,9 +126,10 @@ def procesar_respuestas(nombre_usuario, comida, q1, q2, q3, q4, q5, rating):
     print(f"Rating: {rating}")
 
     # UserN, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN
-    example.create_nodes_and_relationships(nombre_usuario,comida,q1,q2,q3,q4,q5,rating)
+    example.create_nodes_and_relationships(nombre_usuario, comida, q1, q2, q3, q4, q5, rating)
 
-    dos_recomendaciones = example.recomendar_comida()
+    global dos_recomendaciones
+    dos_recomendaciones = example.recomendar_comida(comida, q1, q2, q3, q4, q5, rating)
     example.close()
 
 if __name__ == "__main__":
