@@ -163,8 +163,8 @@ example = Neo4j_C(uri, user, password)
 # Se pasan los parámetros deseados
 #example.create_nodes_and_relationships("Pepito", "Helado", "Frio", "Dulce", "Cremoso", "Restaurante", "Chatarra", "10")
 
-example.mostrar_datos()
-example.recomendar_comida("David")
+#example.mostrar_datos()
+#example.recomendar_comida("David")
 
 # pruebas 
 """
@@ -183,4 +183,4 @@ example.recomendar_comida("Papitas", "Caliente", "Salado", "Crujiente", "Restaur
 
 #print(type(example.recomendar_comida("Sprite", "Frio", "Dulce", "Liquido", "Restaurante", "Chatarra", "10")))
 # Cerrar la conexión al finalizar
-example.close()
+#example.close()
