@@ -57,7 +57,6 @@ def verificar_usuario(nombre, contraseña):
         print(f"Se produjo un error: {e}")
         return False
 
-
 # ----------------- Flask --------------------------------
 
 @app.route('/')

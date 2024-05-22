@@ -29,6 +29,14 @@ class Neo4j_C:
             reclist.append(nodo)
         print(reclist)
 
+    def recomendar_comida(self, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN):
+        with self._driver.session() as session:
+            recommendations = session.read_transaction(
+                self._recommend_food, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN
+            )
+        
+        return recommendations
+
 # Nodos y sus relaciones
     @staticmethod
     def _create_data(tx, UserN, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN):
@@ -106,7 +114,7 @@ class Neo4j_C:
         # Establecer relación entre comida y valoración (rating)
         tx.run("MATCH (c:Comida {name: $ComidaN}), (r:Rate {name: $RateN}) "
                "MERGE (c)-[:TIENE]->(r)", ComidaN=ComidaN, RateN=RateN)
-        
+
     @staticmethod
     def _view_data(tx):
         result = tx.run("MATCH (n) RETURN n.name AS name")
@@ -115,42 +123,39 @@ class Neo4j_C:
 
     @staticmethod
     def _view_food(tx):
-        query = """
-        MATCH (n:Comida)
-        RETURN n.name AS name
-        """
-        result = tx.run(query)
-        return [record["name"] for record in result]
+        result = tx.run("MATCH (n:Comida) RETURN n.name AS name")
+        names = [record["name"] for record in result]
+        return names
 
     @staticmethod
-    def _recommend_food(tx, user_name):
-        properties = ["Temperatura", "Sabor", "Textura", "Lugar", "Tipo"]
+    def _recommend_food(tx, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN):
+        query = """
+        MATCH (f:Comida {name: $ComidaN})-[:PERTENECE]->(t:Temperatura),
+            (f)-[:PERTENECE]->(s:Sabor),
+            (f)-[:PERTENECE]->(tx:Textura),
+            (f)-[:PERTENECE]->(l:Lugar),
+            (f)-[:PERTENECE]->(tp:Tipo)
+        WITH t, s, tx, l, tp
+        MATCH (otherFoods:Comida)
+        WHERE otherFoods.name <> $ComidaN
+        OPTIONAL MATCH (otherFoods)-[r1:PERTENECE]->(t)
+        OPTIONAL MATCH (otherFoods)-[r2:PERTENECE]->(s)
+        OPTIONAL MATCH (otherFoods)-[r3:PERTENECE]->(tx)
+        OPTIONAL MATCH (otherFoods)-[r4:PERTENECE]->(l)
+        OPTIONAL MATCH (otherFoods)-[r5:PERTENECE]->(tp)
+        WITH otherFoods, count(r1) + count(r2) + count(r3) + count(r4) + count(r5) AS relevance
+        RETURN otherFoods.name AS name, relevance
+        ORDER BY relevance DESC
+        LIMIT 2
+        """
+        result = tx.run(query, ComidaN=ComidaN, TempN=TempN, SaborN=SaborN, TexturaN=TexturaN, LugarN=LugarN, TipoN=TipoN, RateN=RateN)
         
-        base_query = [
-            "MATCH (u:User {name: $user_name})-[:WATCH]->(f:Comida)"
-        ]
-
-        # Add MATCH clauses for each property
-        for prop in properties:
-            base_query.append(f"MATCH (f)-[:PERTENECE]->(t:{prop})")
+        # Ensure at least 2 results are returned
+        recommendations = [record["name"] for record in result]
+        while len(recommendations) < 2:
+            recommendations.append(None)
         
-        base_query.append("WITH " + ", ".join([f"t:{prop}" for prop in properties]))
-        base_query.append("MATCH (otherFoods:Comida)")
-
-        # Create where_clauses iteratively
-        where_clauses = []
-        for prop in properties:
-            where_clauses.append(f"(otherFoods)-[:PERTENECE]->(t:{prop})")
-        
-        # Construct the WHERE clause
-        where_clause = "WHERE (" + " OR ".join(where_clauses) + ") AND (otherFoods) <> f"
-        
-        # Combine the full query
-        full_query = "\n".join(base_query) + "\n" + where_clause + "\nRETURN otherFoods.name AS name"
-        
-        result = tx.run(full_query, user_name=user_name)
-        return [record["name"] for record in result]
-
+        return recommendations
 
 
 # Configuración de conexión y ejecución de la creación de datos
@@ -163,23 +168,33 @@ example = Neo4j_C(uri, user, password)
 # Se pasan los parámetros deseados
 #example.create_nodes_and_relationships("Pepito", "Helado", "Frio", "Dulce", "Cremoso", "Restaurante", "Chatarra", "10")
 
-#example.mostrar_datos()
-#example.recomendar_comida("David")
+example.mostrar_datos()
 
 # pruebas 
-"""
-example.recomendar_comida("Pizza", "Caliente", "Salado", "Suave", "Casa", "Chatarra", "10")
-example.recomendar_comida("Pizza", "Caliente", "Salado", "Crujiente", "Restaurante", "Chatarra", "10")
-
-example.recomendar_comida("Hamburguesa", "Caliente", "Salado", "Crujiente", "Restaurante", "Chatarra", "7")
-
-example.recomendar_comida("Helado", "Frio", "Dulce", "Liquido", "Casa", "Chatarra", "10")
-example.recomendar_comida("Sopa", "Frio", "Dulce", "Liquido", "Casa", "Saludable", "8")
-
-example.recomendar_comida("Papitas", "Caliente", "Salado", "Crujiente", "Restaurante", "Chatarra", "10")
-
-"""
-#example.recomendar_comida("Sprite", "Frio", "Dulce", "Liquido", "Restaurante", "Chatarra", "10")
+#example.create_nodes_and_relationships("Juan", "Pizza", "Caliente", "Salado", "Suave", "Restaurante", "Chatarra", "9")
+#example.create_nodes_and_relationships("David", "Helado", "Frio", "Dulce", "Cremoso", "Calle", "Chatarra", "7")
+#example.create_nodes_and_relationships("Luis", "Nachos", "Templado", "Salado", "Crujiente", "Casa", "Chatarra", "10")
+#example.create_nodes_and_relationships("Bran", "Lasagna", "Caliente", "Salado", "Suave", "Casa", "Chatarra", "10")
+#example.create_nodes_and_relationships("Gabriel", "Gomitas", "Templado", "Acido", "Suave", "Calle", "Chatarra", "8")
+#example.create_nodes_and_relationships("Jose", "Huevos", "Caliente", "Picante", "Cremoso", "Casa", "Saludable", "6")
+#example.create_nodes_and_relationships("Padilla", "Chilaquiles", "Caliente", "Salado", "Suave", "Restaurante", "Chatarra", "8")
+#example.create_nodes_and_relationships("Dom", "Chicharrones", "Caliente", "Picante", "Crujiente", "Calle", "Chatarra", "10")
+#example.create_nodes_and_relationships("Anggie", "Pasta", "Caliente", "Salado", "Cremoso", "Restaurante", "Chatarra", "8")
+#example.create_nodes_and_relationships("Quezada", "Sandwich", "Templado", "Salado", "Suave", "Casa", "Saludable", "5")
+#example.create_nodes_and_relationships("Joni", "Carne", "Caliente", "Salado", "Suave", "Restaurante", "Saludable", "10")
+#example.create_nodes_and_relationships("Díaz", "Shake", "Frio", "Dulce", "Liquído", "Casa", "Saludable", "5")
+#example.create_nodes_and_relationships("Iris", "Ensalada", "Templado", "Salado", "Crujiente", "Restaurante", "Saludable", "6")
+#example.create_nodes_and_relationships("Willfredo", "Papitas", "Caliente", "Salado", "Crujiente", "Calle", "Chatarra", "9")
+#example.create_nodes_and_relationships("Patricio", "Donas", "Templado", "Dulce", "Suave", "Restaurante", "Chatarra", "6")
+#example.create_nodes_and_relationships("Mario", "Coca", "Frio", "Dulce", "Liquido", "Calle", "Chatarra", "8")
+#example.create_nodes_and_relationships("Rodrigo", "Hamburguesa", "Caliente", "Salado", "Suave", "Restaurante", "Chatarra", "10")
+#example.create_nodes_and_relationships("Gerardo", "Pulpo", "Templado", "Salado", "Suave", "Restaurante", "Saludable", "4")
+#example.create_nodes_and_relationships("Carmen", "Sopa", "Caliente", "Salado", "Liquido", "Casa", "Saludable", "9")
+#example.create_nodes_and_relationships("Jack", "Cuquito", "Frio", "Dulce", "Liquido", "Casa", "Chatarra", "6")
+#example.create_nodes_and_relationships("Pedro", "Pizza", "Caliente", "Salado", "Crujiente", "Casa", "Chatarra", "10")
+#example.create_nodes_and_relationships("Lopez", "Sevenup", "Frio", "Dulce", "Liquido", "Restaurante", "Chatarra", "8")
+#example.create_nodes_and_relationships("Martin", "Sprite", "Frio", "Dulce", "Liquido", "Restaurante", "Chatarra", "7")
+#example.create_nodes_and_relationships("Lupita", "Medicina", "Templada", "Dulce", "Liquida", "Casa", "Saludable", "7")
 
 #print(type(example.recomendar_comida("Sprite", "Frio", "Dulce", "Liquido", "Restaurante", "Chatarra", "10")))
 # Cerrar la conexión al finalizar
