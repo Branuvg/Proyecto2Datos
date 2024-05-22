@@ -36,10 +36,21 @@ class Neo4j_C:
                 reclist.append(nodo)
         print(reclist)
 
-    # Nodos y sus relaciones
+# Nodos y sus relaciones
     @staticmethod
     def _create_data(tx, UserN, ComidaN, TempN, SaborN, TexturaN, LugarN, TipoN, RateN):
+        UserN = UserN
+        ComidaN = ComidaN
+        TempN = TempN
+        SaborN = SaborN
+        TexturaN = TexturaN
+        LugarN = LugarN
+        TipoN = TipoN
+        RateN = RateN
+
         global listName
+
+        print(listName, "*")
 
         # Crear nodos de usuario y comida con parámetros
         tx.run("CREATE (:User {name: $UserN})", UserN=UserN)
@@ -102,7 +113,7 @@ class Neo4j_C:
         # Establecer relación entre comida y valoración (rating)
         tx.run("MATCH (c:Comida {name: $ComidaN}), (r:Rate {name: $RateN}) "
                "MERGE (c)-[:TIENE]->(r)", ComidaN=ComidaN, RateN=RateN)
-
+        
     @staticmethod
     def _view_data(tx):
         result = tx.run("MATCH (n) RETURN n.name AS name")
@@ -111,31 +122,42 @@ class Neo4j_C:
 
     @staticmethod
     def _view_food(tx):
-        result = tx.run("MATCH (n:Comida) RETURN n.name AS name")
-        names = [record["name"] for record in result]
-        return names
+        query = """
+        MATCH (n:Comida)
+        RETURN n.name AS name
+        """
+        result = tx.run(query)
+        return [record["name"] for record in result]
 
     @staticmethod
     def _recommend_food(tx, user_name):
-        query = """
-        MATCH (u:User {name: $user_name})-[:WATCH]->(f:Comida)
-        MATCH (f)-[:PERTENECE]->(t:Temperatura)
-        MATCH (f)-[:PERTENECE]->(s:Sabor)
-        MATCH (f)-[:PERTENECE]->(tx:Textura)
-        MATCH (f)-[:PERTENECE]->(l:Lugar)
-        MATCH (f)-[:PERTENECE]->(tp:Tipo)
-        WITH t, s, tx, l, tp
-        MATCH (otherFoods:Comida)
-        WHERE (otherFoods)-[:PERTENECE]->(t) AND
-              (otherFoods)-[:PERTENECE]->(s) AND
-              (otherFoods)-[:PERTENECE]->(tx) AND
-              (otherFoods)-[:PERTENECE]->(l) AND
-              (otherFoods)-[:PERTENECE]->(tp) AND
-              (otherFoods) <> f
-        RETURN otherFoods.name AS name
-        """
-        result = tx.run(query, user_name=user_name)
+        properties = ["Temperatura", "Sabor", "Textura", "Lugar", "Tipo"]
+        
+        base_query = [
+            "MATCH (u:User {name: $user_name})-[:WATCH]->(f:Comida)"
+        ]
+
+        # Add MATCH clauses for each property
+        for prop in properties:
+            base_query.append(f"MATCH (f)-[:PERTENECE]->(t:{prop})")
+        
+        base_query.append("WITH " + ", ".join([f"t:{prop}" for prop in properties]))
+        base_query.append("MATCH (otherFoods:Comida)")
+
+        # Create where_clauses iteratively
+        where_clauses = []
+        for prop in properties:
+            where_clauses.append(f"(otherFoods)-[:PERTENECE]->(t:{prop})")
+        
+        # Construct the WHERE clause
+        where_clause = "WHERE (" + " OR ".join(where_clauses) + ") AND (otherFoods) <> f"
+        
+        # Combine the full query
+        full_query = "\n".join(base_query) + "\n" + where_clause + "\nRETURN otherFoods.name AS name"
+        
+        result = tx.run(full_query, user_name=user_name)
         return [record["name"] for record in result]
+
 
 
 # Configuración de conexión y ejecución de la creación de datos
@@ -148,8 +170,8 @@ example = Neo4j_C(uri, user, password)
 # Se pasan los parámetros deseados
 #example.create_nodes_and_relationships("Pepito", "Helado", "Frio", "Dulce", "Cremoso", "Restaurante", "Chatarra", "10")
 
-#example.mostrar_datos()
-#example.recomendar_comida("David")
+example.mostrar_datos()
+example.recomendar_comida("David")
 
 # Cerrar la conexión al finalizar
-#example.close()
+example.close()
