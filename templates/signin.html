@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nose.css') }}">
+    <!--{{ url_for('static', filename='nose.css') }}-->
 </head>
 <body>
 
@@ -18,15 +19,15 @@
     </div>
 </div>
 <div class="split right">
-    <h1 class="centered">Sign In</h1>
     <div class="texty">
+        <u><h1 class="header">Sign In</h1></u>
         <form action="{{ url_for('handle_register') }}" method="post">
             <div class="form-group">
                 <label>Nombre: </label>
                 <input type="text" required name="name">
             </div>
             <div class="form-group">
-                <label>Contraseña: </label>
+                <label>ContraseÃ±a: </label>
                 <input type="password" required name="password">
             </div>
             <button type="submit" class="confirm">Send</button>

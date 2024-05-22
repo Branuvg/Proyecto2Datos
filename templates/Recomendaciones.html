@@ -4,20 +4,20 @@
 <title>MySoulComida</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="../static/nose.css">
-</head>
-<body style="background-color: #c7c7c7;">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nose.css') }}">
+<!--{{ url_for('static', filename='nose.css') }}-->
+<body style="background-color: #ffffff; background-image: linear-gradient(white, #adadad); height: 715px;">
 
 <!-- First Grid: Logo & About -->
-<h1 class="centered">Recomendaciones</h1>
 <div class="recomendaciones">
+  <h1 class="header2"><u>Recomendaciones: </u></h1>
   <div class="izquierda">
     <h2>Recomendación 1: </h2>
-    <p>{{ recomendaciones[0] }}</p>
+    <b><p>{{ recomendaciones[0] }}</p></b>
   </div>
   <div class="derecha">
     <h2>Recomendación 2: </h2>
-    <p>{{ recomendaciones[1] }}</p>
+    <b><p>{{ recomendaciones[1] }}</p></b>
   </div>
 </div>
 

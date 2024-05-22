@@ -4,16 +4,17 @@
     <title>MySoulComida</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../static/nose.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nose.css') }}">
+    <!--{{ url_for('static', filename='nose.css') }}-->
 </head>
-<body style="background-color: #c7c7c7;">
+<body style="background-color: #ffffff; background-image: linear-gradient(white, #adadad); height: 715px;">
 
 <!-- First Grid: Logo & About -->
-<h1 class="centered">Preguntas</h1>
 <div class="preguntas">
+    <u><h1 class="header">Preguntas</h1></u>
     <form id="quiz-form" method="POST" action="/procesar_preguntas">
         <div class="comida-group">
-            <label>Comida: </label>
+            <b><label>Comida: </label></b>
             <input type="text" required name="comida">
         </div>
 
